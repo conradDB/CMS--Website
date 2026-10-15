@@ -22,8 +22,6 @@ $('.menu-toggle').addEventListener('click', () => { menu.hidden = !menu.hidden; 
 $$('a', menu).forEach(a => a.addEventListener('click', closeMenu));
 window.addEventListener('resize', () => { if (innerWidth > 760) closeMenu(); });
 document.addEventListener('click', e => { if (!menu.hidden && !menu.contains(e.target) && !e.target.closest('.menu-toggle')) closeMenu(); });
-const heroEvents = [ ['A new opportunity arrives.', 'Captured. Connected. Ready for what’s next.'], ['The next set of keys. Delivered.', 'From first enquiry to a confident handover.'], ['A customer for the road ahead.', 'Thoughtful follow-ups. A lasting connection.'] ];
-$$('[data-hero-stage]').forEach(b => b.addEventListener('click', () => { const i = Number(b.dataset.heroStage); $('#hero-event-title').textContent = heroEvents[i][0]; $('#hero-event-description').textContent = heroEvents[i][1]; $$('[data-hero-stage]').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', String(x === b)); }); }));
 const dashboards = [
  {title:'A new connection',module:'LEAD MANAGEMENT + SALES CLOUD',person:'Alex Morgan',initials:'AM',subtitle:'New vehicle enquiry · Illustrative customer',tag:'CAPTURED',rows:[['Source','Dealership website'],['Assigned to','Sales team'],['Next step','Make the first connection']],note:'The right opportunity. In the right hands.',detail:'A shared customer record, from the very first hello.'},
  {title:'From interest to ignition',module:'SALES CLOUD + STOCK + VALUATIONS',person:'Alex Morgan',initials:'AM',subtitle:'The customer journey continues',tag:'IN MOTION',rows:[['Vehicle','Stock matched'],['Test drive','Appointment booked'],['Deal file','Ready for the next step']],note:'One record. Every step connected.',detail:'Quotes, trade-ins and delivery, with your team in sync.'},
@@ -67,6 +65,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();if(!cha
 $('#year').textContent=new Date().getFullYear();
 let progressQueued=false;function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;$('.reading-progress').style.transform=`scaleX(${max>0?scrollY/max:0})`;progressQueued=false;}window.addEventListener('scroll',()=>{if(!progressQueued){requestAnimationFrame(updateProgress);progressQueued=true;}},{passive:true});updateProgress();
 if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.08});$$('.section-heading,.journey-layout,.product-explorer,.wilson-copy,.integration-heading,.about-copy,.contact-bottom').forEach(el=>{el.classList.add('reveal');observer.observe(el);});root.classList.add('js-motion');}
-function syncTabOrientation(){ $('#product-tabs').setAttribute('aria-orientation',innerWidth<=760?'horizontal':'vertical');}syncTabOrientation();window.addEventListener('resize',syncTabOrientation);
+function syncTabOrientation(){ $('#product-tabs').setAttribute('aria-orientation','vertical');}syncTabOrientation();window.addEventListener('resize',syncTabOrientation);
 
 $$('span').filter(el => ['↗','↓','↑','⌄','×'].includes(el.textContent.trim()) && !el.children.length).forEach(el => el.setAttribute('aria-hidden','true'));

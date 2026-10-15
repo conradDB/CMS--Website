@@ -1,69 +1,69 @@
 # CMS — Every move. Connected.
 
-A self-contained website redesign for CMS Systems, built with HTML, CSS and vanilla JavaScript. No AI hosting platform, CDN, analytics service, API key, or production Node.js process is needed to run the website. Local fonts and artwork are included.
+A self-contained redesign for CMS Systems. The site uses local HTML, CSS, JavaScript, fonts, original CMS branding and procedural Three.js artwork. There are no runtime CDN requests, API keys, AI hosting requirements or production Node.js services.
 
-## Run locally
+## Develop and verify
 
-From this repository, run `npm run dev` with Node.js 20 or newer. The development server uses port 3000; change it with `npm run dev -- --port 8080`. Use the static server for local review; managed browser policies in this environment block direct `file://` navigation.
-
-For development tools and automated checks:
+Use Node.js 20 or newer:
 
 ```sh
 npm ci --cache /tmp/cms-npm-cache --no-audit --no-fund
+npm run dev
 npm test
 npm run build
 ```
 
-Browser tests use `/usr/bin/chromium`. Set `CHROMIUM_PATH` to another installed Chromium executable when needed. Dependencies are development-only. The build script itself uses Node.js standard libraries.
+Development uses port 3000; change it with `npm run dev -- --port 8080`. Development, testing and production builds bundle `src/scene.js` into the local `assets/scene.js` file with esbuild. The generated bundle is committed so the source checkout can also be served directly.
+
+Tests use `/usr/bin/chromium`. Set `CHROMIUM_PATH` to another Chromium executable if required. The browser test configuration enables Chromium's software WebGL renderer and runs one worker to avoid graphics contention in cloud environments.
 
 ## Deploy to Vercel
 
-Import `conradDB/CMS--Website` into Vercel and select the `main` branch. Keep Root Directory at `./`. The included `vercel.json` sets Framework to Other, runs `npm ci` and `npm run build`, and serves `dist/`. No environment variables are required. Click Deploy; Vercel supplies the public URL. Subsequent pushes to the connected production branch redeploy automatically.
+Import `conradDB/CMS--Website`, select branch `main`, and keep Root Directory at `./`. The included `vercel.json` uses Framework Other, installs with `npm ci`, builds with `npm run build`, and serves `dist/`. No environment variables are required. Subsequent pushes to the connected production branch trigger Vercel deployments.
 
-## Deploy
+## Deploy to your own server
 
-`npm run build` creates `dist/`. Copy the **contents** of `dist/` into the site's static web directory. `index.html` must sit at the website root alongside `styles.css`, `motion.css`, `app.js`, `motion.js`, `content.js`, `web.config`, and `assets/`. Relative URLs also support deployment in a subdirectory.
+Run `npm run build`. Copy the **contents** of `dist/` into the static web directory. Keep `index.html`, `styles.css`, `app.js`, `experience.js`, `content.js`, `web.config`, and `assets/` together. Relative asset URLs support a subdirectory deployment.
 
-The included `web.config` configures the default document and WebP/WOFF2 MIME types on IIS. It does not require ASP.NET application code. Other static servers can ignore this file. Existing IIS sites may have inherited settings; test in a staging directory before replacing an existing production site. This build has been verified with Chromium and a local static server, not on the organisation's live IIS instance.
+`web.config` supplies IIS default document and asset MIME settings. Other static servers can ignore it. This build is tested with Chromium and a local static HTTP server; the organisation's live IIS server has not been tested.
 
-For the competition, `CMS-Website-deploy.zip` contains the deployable files and deployment notes. `CMS-Website-source.zip` contains the editable project, lockfile, content source and tests. The source archive excludes dependencies, generated test reports and screenshot artifacts.
+The deployment ZIP contains these ready-to-serve files. The source ZIP also includes editable source, the lockfile, content provenance and tests, excluding dependencies and generated reports.
 
-## What's included
+## Design and behaviour
 
-- Independently styled light and dark themes with system preference detection and saved manual selection.
-- Cinematic showroom entrance with staggered typography, parallax, animated connection paths and three rotating journey previews.
-- Four scroll-driven customer journey chapters in a pinned desktop scene; direct touch-friendly chapter selection on mobile. Scenes include stock matching, customer care and reporting visuals.
-- Interactive orbital ecosystem selector connecting all nine CMS modules, with full product copy preserved in accessible detail dialogs.
-- Wilson's clearly labelled scripted website guide: product exploration, support contacts and demo routing.
-- Demo enquiry form with validation, an explicit email hand-off and copyable enquiry text.
-- Integrations, company history, South African offices, MENA reseller, training, campaigns and support contacts.
-- Source legal/privacy/cookie/POPIA text, and a link to CMS's existing PAIA PDF.
-- Keyboard-operated tabs, modal focus handling, skip navigation, a visible animation pause control, saved motion preferences and device reduced-motion support.
-- Original supplied CMS eco / Wilson artwork in the header, footer and Wilson scene; original icon artwork for the ecosystem, chat launcher and favicon.
+- An original nine-spoke chrome and CMS-blue form introduces the automotive software story. It rotates, responds to pointer movement, and changes position and scale through the page.
+- A pinned, three-part editorial story advances with scrolling or explicit numbered controls.
+- A connected 3D network surrounds the central statement. All models and studio lighting are generated locally; no downloaded models, video streams or HDR services are required.
+- Nine product modules are available through keyboard-operated tabs and full detail dialogs. Sell / Operate / Grow controls provide entry points without hiding modules.
+- Four illustrative customer journey chapters connect enquiry, sale, service and reporting.
+- Original CMS eco / Wilson artwork appears throughout. Light and dark themes respect system preferences and save the visitor's selection.
+- An animation pause control and device reduced-motion preference keep illustrations static in their reserved spaces. Local SVG illustrations also cover browsers without WebGL or a lost graphics context.
+- Rendering pauses while the page is hidden, when a modal or Wilson guide is open, and in sections without a visible 3D object. Pixel density is capped, with a lower resolution for software graphics.
 
-## Important content and asset notes
+## Content and functional boundaries
 
-This is a first design implementation for review, not a published production replacement.
+The supplied `docs/CONTENT-SOURCE.md` is the product and legal content source. All nine product descriptions and legal/privacy/cookie/POPIA text remain available. Contacts, offices, reseller information and integration names are retained. The supplied logo files are preserved unchanged in `assets/brand/`; legacy alternatives are retained but not substituted for the current artwork.
 
-1. **Original logo integrated:** artwork supplied by the user in `logos.zip` is preserved unchanged in `assets/brand/`. The current full-colour CMS eco / Wilson lock-up is used in both themes, with a light backing in dark mode. Other supplied legacy variants are retained as source assets but are not substituted for the current lock-up.
-2. The showroom image was generated for this concept. The interface visuals and customer examples are illustrative, not CMS screenshots or live records. No usage counts, revenue claims or customer testimonials are invented.
-3. Wilson's website demo is deterministic and runs locally. It does not connect to Wilson's production AI, access customer records or execute product actions. The actual CMS in-product assistant is described only as a helper that guides users when stuck.
-4. The enquiry form prepares a `mailto:` message and does not submit a lead to a server. The visitor must open their email application, review and send it. A copyable fallback is included. A real web submission endpoint can be connected when the approved CMS endpoint is supplied.
-5. The PAIA PDF remains an explicitly outbound link to CMS's existing site; it was not downloadable in this environment. Social links, reseller links, email and telephone actions are also outbound user-initiated actions. No external services are called automatically when the website loads.
-6. Product content and legal text come from `docs/CONTENT-SOURCE.md`, supplied by the user. No live statistics endpoint is called. Integration names are text labels rather than recreated partner logos. Manrope is a proposed presentation typeface; corporate guidance in the supplied extract lists Roboto, so typography is a design choice for review.
-7. Existing product page URLs are not rewritten by this static build; content is available through the product explorer. If this replaces the current live site, arrange redirects for the former product URLs as part of deployment planning.
+The 3D form is an original visual metaphor, not a CMS hardware product. Customer records and dashboards are illustrative. No customer totals, revenue claims or testimonials have been invented. The reference recording informed the editorial rhythm and visual continuity; its artwork and implementation were not copied.
+
+Wilson's website guide is explicitly a **scripted local demo**, not the production AI assistant. It cannot access customer records or take actions in CMS. The enquiry form validates input and prepares an email; the visitor reviews and sends it through their email application. A copyable enquiry is also available.
+
+Social, reseller, email and telephone links are user-initiated outbound actions. The PAIA PDF links to CMS's existing website because a local approved copy is unavailable. No external services are called automatically when the page loads.
+
+Manrope is a proposed presentation typeface; the supplied corporate extract names Roboto. Previous product URLs are not rewritten by this static build; plan redirects if replacing the existing corporate website.
 
 ## Verification
 
-20 Playwright checks cover local asset loading with no page errors or external requests, theme persistence, motion preferences, keyboard navigation, all nine detail dialogs, product-to-enquiry handoff, form validation, Wilson responses and safe text rendering, legal content, responsive widths of 360/390/768/1440px, axe WCAG A/AA scans of the initial page in both themes, scroll-driven scene progression, animation pause/resume, device reduced-motion behavior, ecosystem connection selection and original-logo loading. Automated scans are not a claim of comprehensive accessibility certification. Desktop/mobile screenshots were also reviewed.
+The 22 browser checks cover local-only asset loading, page errors, both themes, saved preferences, keyboard navigation, all nine complete product dialogs, product-to-enquiry handoff, form validation, safe Wilson text rendering, legal content, widths of 360/390/768/1440px, axe WCAG A/AA scans in both themes, scroll progression, 3D placement after resizing, animation pause/resume, device reduced-motion behaviour, business-goal selection, original logos and WebGL fallback. Automated scans do not constitute comprehensive accessibility certification. Desktop and mobile screenshots are reviewed separately.
 
-## Structure
+## Source map
 
-- `index.html` — page layout, dialogs and forms
-- `styles.css` — themes, layouts and motion
-- `app.js` — interactions and local state
-- `motion.js` / `motion.css` — cinematic entrance, pinned storytelling, orbital ecosystem and motion preferences
+- `index.html` — page, dialogs and forms
+- `styles.css` — responsive composition, themes and CSS motion
+- `app.js` — product details, customer journey, theme, enquiry and Wilson guide
+- `experience.js` — editorial scrolling and business-goal controls
+- `src/scene.js` — procedural 3D geometry, lighting and scene transitions
 - `content.js` — full product and legal copy
-- `assets/` — local artwork and fonts, with font licences
-- `scripts/` — static development server and build
-- `tests/` — browser validation
+- `assets/` — local bundle, original branding, fallback illustrations, fonts and licences
+- `scripts/` — bundling, development server and production build
+- `tests/` — functional, responsive, motion and accessibility checks

@@ -7,11 +7,16 @@
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "test": "playwright test"
+    "test": "playwright test",
+    "predev": "node scripts/bundle.mjs",
+    "pretest": "node scripts/bundle.mjs",
+    "prestart": "node scripts/bundle.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@fontsource/manrope": "5.2.8",
-    "@playwright/test": "1.61.1"
+    "@playwright/test": "1.61.1",
+    "esbuild": "0.25.12",
+    "three": "0.180.0"
   }
 }
