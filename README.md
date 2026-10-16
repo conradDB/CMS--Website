@@ -18,6 +18,14 @@ This repository now contains the Luxurytime Shopify theme. The previous CMS webs
 
 Uploading the ZIP adds a theme to the library; it does not publish it automatically. Publishing is a separate Shopify admin action.
 
+## Standalone HTML preview
+
+[Download the HTML preview](https://github.com/conradDB/CMS--Website/raw/refs/heads/main/downloads/Luxurytime-Preview.html) or [the smaller ZIP download](https://github.com/conradDB/CMS--Website/raw/refs/heads/main/downloads/Luxurytime-Preview.zip).
+
+Save the HTML file and open it in a modern browser. If downloading the ZIP, extract it first and open `Luxurytime-Preview.html`. The preview embeds its images, fonts, animation and demo catalogue; it does not need a web server or internet connection. Product and collection pages use illustrative designs. Search, shopping bag and newsletter controls explain the preview limitations without submitting data. The Shopify theme ZIP remains the file to upload to Shopify.
+
+Rebuild this preview with `npm run preview:html`. The exporter shares the Liquid renderer with the development preview and leaves storefront theme files unchanged.
+
 ## Configure the design
 
 - **Theme settings → Logo:** select the approved Luxurytime artwork. Until then, the header displays the Shopify shop name as an editorial wordmark.
