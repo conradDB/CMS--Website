@@ -1,69 +1,93 @@
-# CMS — Every move. Connected.
+# Luxurytime Atelier — Shopify theme
 
-A self-contained redesign for CMS Systems. The site uses local HTML, CSS, JavaScript, fonts, original CMS branding and procedural Three.js artwork. There are no runtime CDN requests, API keys, AI hosting requirements or production Node.js services.
+An original Luxurytime redesign built on **Shopify Dawn 15.5.0**. The homepage uses a dark horology presentation, large editorial typography, an interactive mechanical watch, an exploded-view scroll story, live Shopify collections, a macro craftsmanship image and an ivory editorial section.
 
-## Develop and verify
+The deliverable is a Shopify Online Store 2.0 theme. Upload the **theme ZIP**, not the source ZIP, to Shopify to preview it with your real catalogue.
 
-Use Node.js 20 or newer:
+## Upload and preview
+
+[Download the upload-ready Shopify theme ZIP](https://github.com/conradDB/CMS--Website/raw/refs/heads/main/downloads/Luxurytime-Atelier-Shopify.zip).
+
+This repository now contains the Luxurytime Shopify theme. The previous CMS website remains in Git history. This theme runs on Shopify; it is not a standalone Vercel website.
+
+1. In Shopify admin, open **Online Store → Themes**.
+2. Choose **Import theme → Upload zip file** (some admin versions label this **Add theme → Upload zip file**).
+3. Upload `Luxurytime-Atelier-Shopify.zip`.
+4. On the new theme, choose **Customize / Edit theme**. Select your approved logo, featured collection and collection tiles. The homepage automatically uses All products when no featured collection is selected.
+5. Choose **Preview** to review the unpublished theme on desktop and mobile, including a real product, its variants, cart and checkout handoff.
+
+Uploading the ZIP adds a theme to the library; it does not publish it automatically. Publishing is a separate Shopify admin action.
+
+## Configure the design
+
+- **Theme settings → Logo:** select the approved Luxurytime artwork. Until then, the header displays the Shopify shop name as an editorial wordmark.
+- **Luxurytime · Watch story:** edit the chapter labels, headings, descriptions and shop button. The supplied four chapters map to the assembled watch, close-up, exploded view and reassembled watch. Animation can be disabled here. Visitors can pause it independently.
+- **Luxurytime · Timepieces:** choose a featured collection and 4–8 products. Images, titles, vendors, prices, currencies and availability come from Shopify, with links to native product pages.
+- **Luxurytime · Collections:** choose up to five collection blocks, for example your actual watch brands. With no blocks, the theme displays up to five existing collections.
+- **Luxurytime · Editorial:** replace the included illustrative craftsmanship image if desired. Edit the headline and link to an existing collection or page.
+- **Luxurytime · Perspective:** edit the final editorial message and collection button.
+- **Header and footer:** choose the store's menus, social links and newsletter settings. Shopify's policy links remain available in the native footer.
+
+The typography is bundled locally in `assets/luxurytime.css`; it overrides Dawn's font picker to preserve the custom design. Colours for native product, collection, cart and content pages use the theme's colour schemes.
+
+## Shopify shopping foundation
+
+Dawn's product pages, variant selector, product form, cart drawer, cart page, collection filters, search, accounts, newsletter forms and checkout handoff are retained. The custom homepage links to Shopify routes and actual products. It does not invent inventory or prices, calculate tax or shipping, or replace Shopify checkout.
+
+A newly uploaded theme does not automatically copy settings, app embeds, app blocks, custom scripts or metafield bindings from the existing theme. Re-enable the store's required app embeds and product-detail blocks in the new theme editor. Use Dawn's existing dynamic-source support to bind the store's actual watch specifications; no unknown metafield names have been guessed.
+
+## Visual assets and provenance
+
+The supplied recording informed the visual direction: dark navy, restrained serif typography, a large watch, separated mechanical layers, collections and macro imagery. No artwork, logos, code or video frames were copied from that reference.
+
+- `src/watch-model.js`: original procedural watch geometry, dial artwork, bracelet, movement and separated layers. It is an **illustrative design study**, not a representation of a listed luxury brand or an item offered for sale.
+- `src/studio.js`: locally generated photographic lighting environment. No external 3D model or HDR downloads are needed.
+- `assets/lt-watch-poster.png` and `lt-watch-detail.png`: static renders of that original model, used as fallback/editorial art.
+- `assets/lt-atelier.webp`: original AI-generated illustrative macro watchmaking image. It does not document Luxurytime's premises, staff or repair services.
+- Cormorant Garamond and DM Sans are bundled with their licences, along with a licensed symbols font.
+- The original Dawn licence is preserved in `LICENSE.md` and `assets/DAWN-LICENSE.txt`. The Three.js licence is included in assets.
+
+Access to the current Luxurytime website was blocked in the build environment. Its existing logo, theme settings and live storefront copy could not be inspected or migrated. The new theme reads product and collection data from Shopify when installed; merchant-approved brand and editorial content can be selected in the editor.
+
+## Development
+
+Requires Node.js 22 or newer. Packaging the source locally also uses Python 3. From this directory:
 
 ```sh
-npm ci --cache /tmp/cms-npm-cache --no-audit --no-fund
-npm run dev
-npm test
+npm ci --cache /tmp/luxurytime-npm-cache --no-audit --no-fund
 npm run build
+npm run preview
 ```
 
-Development uses port 3000; change it with `npm run dev -- --port 8080`. Development, testing and production builds bundle `src/scene.js` into the local `assets/scene.js` file with esbuild. The generated bundle is committed so the source checkout can also be served directly.
+The local preview serves on port 3100. It renders the **same custom homepage Liquid sections** using LiquidJS and labelled illustrative product fixtures. Its header/footer, product preview and modal controls are development scaffolding; they are not the Shopify commerce runtime and are excluded from the upload ZIP. Preview forms do not submit customer data.
 
-Tests use `/usr/bin/chromium`. Set `CHROMIUM_PATH` to another Chromium executable if required. The browser test configuration enables Chromium's software WebGL renderer and runs one worker to avoid graphics contention in cloud environments.
+```sh
+npm run check
+npm test
+npm run package
+```
 
-## Deploy to Vercel
+`npm run check` runs Shopify Theme Check. The cloud environment uses `SHOPIFY_CLI_NO_ANALYTICS=1 XDG_CONFIG_HOME=/tmp/luxurytime-cli` when invoking Shopify CLI. These are local tooling settings, not storefront credentials.
 
-Import `conradDB/CMS--Website`, select branch `main`, and keep Root Directory at `./`. The included `vercel.json` uses Framework Other, installs with `npm ci`, builds with `npm run build`, and serves `dist/`. No environment variables are required. Subsequent pushes to the connected production branch trigger Vercel deployments.
+Browser checks use `/usr/bin/chromium`, or the executable specified by `CHROMIUM_PATH`. Software WebGL is enabled for cloud testing; one worker avoids GPU contention. To regenerate the original watch stills, start the preview server and run `node scripts/capture.mjs`.
 
-## Deploy to your own server
+## Validation scope
 
-Run `npm run build`. Copy the **contents** of `dist/` into the static web directory. Keep `index.html`, `styles.css`, `app.js`, `experience.js`, `content.js`, `web.config`, and `assets/` together. Relative asset URLs support a subdirectory deployment.
+Shopify Theme Check covers Liquid, schemas, template structure and asset references. The original Dawn 15.5.0 baseline has nine lint warnings; these were checked separately so inherited warnings can be distinguished from custom changes.
 
-`web.config` supplies IIS default document and asset MIME settings. Other static servers can ignore it. This build is tested with Chromium and a local static HTTP server; the organisation's live IIS server has not been tested.
+Browser checks cover the shared homepage sections, local assets, JavaScript errors, four scroll chapters, exploded layers, keyboard controls, saved motion preferences, device reduced motion, no-WebGL fallback, no-JavaScript rendering, responsive widths, preview navigation, custom-element reload and an automated WCAG A/AA scan. Desktop/mobile visual captures are also reviewed.
 
-The deployment ZIP contains these ready-to-serve files. The source ZIP also includes editable source, the lockfile, content provenance and tests, excluding dependencies and generated reports.
-
-## Design and behaviour
-
-- An original nine-spoke chrome and CMS-blue form introduces the automotive software story. It rotates, responds to pointer movement, and changes position and scale through the page.
-- A pinned, three-part editorial story advances with scrolling or explicit numbered controls.
-- A connected 3D network surrounds the central statement. All models and studio lighting are generated locally; no downloaded models, video streams or HDR services are required.
-- Nine product modules are available through keyboard-operated tabs and full detail dialogs. Sell / Operate / Grow controls provide entry points without hiding modules.
-- Four illustrative customer journey chapters connect enquiry, sale, service and reporting.
-- Original CMS eco / Wilson artwork appears throughout. Light and dark themes respect system preferences and save the visitor's selection.
-- An animation pause control and device reduced-motion preference keep illustrations static in their reserved spaces. Local SVG illustrations also cover browsers without WebGL or a lost graphics context.
-- Rendering pauses while the page is hidden, when a modal or Wilson guide is open, and in sections without a visible 3D object. Pixel density is capped, with a lower resolution for software graphics.
-
-## Content and functional boundaries
-
-The supplied `docs/CONTENT-SOURCE.md` is the product and legal content source. All nine product descriptions and legal/privacy/cookie/POPIA text remain available. Contacts, offices, reseller information and integration names are retained. The supplied logo files are preserved unchanged in `assets/brand/`; legacy alternatives are retained but not substituted for the current artwork.
-
-The 3D form is an original visual metaphor, not a CMS hardware product. Customer records and dashboards are illustrative. No customer totals, revenue claims or testimonials have been invented. The reference recording informed the editorial rhythm and visual continuity; its artwork and implementation were not copied.
-
-Wilson's website guide is explicitly a **scripted local demo**, not the production AI assistant. It cannot access customer records or take actions in CMS. The enquiry form validates input and prepares an email; the visitor reviews and sends it through their email application. A copyable enquiry is also available.
-
-Social, reseller, email and telephone links are user-initiated outbound actions. The PAIA PDF links to CMS's existing website because a local approved copy is unavailable. No external services are called automatically when the page loads.
-
-Manrope is a proposed presentation typeface; the supplied corporate extract names Roboto. Previous product URLs are not rewritten by this static build; plan redirects if replacing the existing corporate website.
-
-## Verification
-
-The 22 browser checks cover local-only asset loading, page errors, both themes, saved preferences, keyboard navigation, all nine complete product dialogs, product-to-enquiry handoff, form validation, safe Wilson text rendering, legal content, widths of 360/390/768/1440px, axe WCAG A/AA scans in both themes, scroll progression, 3D placement after resizing, animation pause/resume, device reduced-motion behaviour, business-goal selection, original logos and WebGL fallback. Automated scans do not constitute comprehensive accessibility certification. Desktop and mobile screenshots are reviewed separately.
+**Store-specific shopping behaviour has not been tested against Luxurytime's Shopify admin or checkout.** Verify variants, inventory, app integrations, discounts, shipping, payments and checkout in Shopify's unpublished theme preview. Local design-preview tests are not a claim of a completed live checkout or comprehensive accessibility certification.
 
 ## Source map
 
-- `index.html` — page, dialogs and forms
-- `styles.css` — responsive composition, themes and CSS motion
-- `app.js` — product details, customer journey, theme, enquiry and Wilson guide
-- `experience.js` — editorial scrolling and business-goal controls
-- `src/scene.js` — procedural 3D geometry, lighting and scene transitions
-- `content.js` — full product and legal copy
-- `assets/` — local bundle, original branding, fallback illustrations, fonts and licences
-- `scripts/` — bundling, development server and production build
-- `tests/` — functional, responsive, motion and accessibility checks
+- `sections/lt-*.liquid` — editable Luxurytime homepage sections
+- `snippets/lt-*.liquid` — Shopify product and collection tiles
+- `assets/luxurytime.css` — custom visual system and responsive styles
+- `src/luxurytime.js` — story progression, controls, accessibility and renderer lifecycle
+- `src/watch-model.js` / `src/studio.js` — original 3D model and lighting
+- `assets/luxurytime.js` — bundled storefront JavaScript
+- `templates/index.json` — default homepage section arrangement
+- `scripts/preview.mjs` — local Liquid design preview only
+- `scripts/package.mjs` — clean Shopify and source archives
+- Remaining theme files — the Dawn shopping foundation, with limited header, footer and theme-setting changes

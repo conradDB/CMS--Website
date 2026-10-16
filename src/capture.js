@@ -1,0 +1,7 @@
+import * as THREE from 'three';
+import {createStudio} from './studio.js';
+import {createWatch} from './watch-model.js';
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setSize(1000,1200);renderer.setPixelRatio(1);renderer.setClearColor(0,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;document.body.append(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(32,1000/1200,.1,100);camera.position.z=12;scene.environment=createStudio(renderer);
+for(const [color,intensity,pos] of [[0xe2ebff,2.4,[-3,5,6]],[0x88acff,1.4,[5,0,3]],[0xe6d5b6,.8,[-3,-3,3]]]){const l=new THREE.DirectionalLight(color,intensity);l.position.set(...pos);scene.add(l);}scene.add(new THREE.AmbientLight(0xffffff,.2));let model;
+window.captureWatch=({color='#091c38',gold=false,detail=false,exploded=false}={})=>{if(model){scene.remove(model.watch);model.dispose();}model=createWatch({dialColor:color,gold});scene.add(model.watch);model.watch.rotation.set(.15,exploded?-.9:-.38,-.22);model.watch.scale.setScalar(detail?1.6:.92);model.animate({explosion:exploded?1:0,time:23});if(detail){renderer.setSize(800,700);camera.aspect=800/700;}else{renderer.setSize(1000,1200);camera.aspect=1000/1200;}camera.updateProjectionMatrix();renderer.render(scene,camera);return renderer.domElement.toDataURL('image/png');};window.captureReady=true;

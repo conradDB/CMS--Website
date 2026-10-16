@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "story": {
+      "type": "lt-watch-story",
+      "blocks": {
+        "chapter_0": {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 01 \u2014 THE ART OF TIME",
+            "line_one": "A lifetime.",
+            "line_two": "On your wrist.",
+            "copy": "Some things do more than tell the time. Discover extraordinary watches, chosen for the way they make you feel."
+          }
+        },
+        "chapter_1": {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 02 \u2014 THE EXPRESSION",
+            "line_one": "Presence.",
+            "line_two": "In every detail.",
+            "copy": "A line. A finish. A play of light. A closer look reveals a different kind of distinction."
+          }
+        },
+        "chapter_2": {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 03 \u2014 THE ARCHITECTURE",
+            "line_one": "Beauty.",
+            "line_two": "Beneath the surface.",
+            "copy": "Go beyond the first impression. Explore the layers that give a mechanical watch its character."
+          }
+        },
+        "chapter_3": {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 04 \u2014 THE PERSPECTIVE",
+            "line_one": "Find the one.",
+            "line_two": "Make it yours.",
+            "copy": "From the first glance to the everyday ritual. Your next chapter starts with a timepiece that feels like you."
+          }
+        }
+      },
+      "block_order": [
+        "chapter_0",
+        "chapter_1",
+        "chapter_2",
+        "chapter_3"
+      ],
+      "settings": {}
+    },
+    "timepieces": {
+      "type": "lt-featured",
+      "settings": {}
+    },
+    "collections": {
+      "type": "lt-collections",
+      "settings": {}
+    },
+    "atelier": {
+      "type": "lt-atelier",
+      "settings": {}
+    },
+    "perspective": {
+      "type": "lt-perspective",
+      "settings": {}
+    }
+  },
+  "order": [
+    "story",
+    "timepieces",
+    "collections",
+    "atelier",
+    "perspective"
+  ]
+}

@@ -1,0 +1,37 @@
+<section class="lt-perspective" aria-labelledby="lt-perspective-heading-{{ section.id }}"><div class="lt-perspective-visual"><img src="{{ 'lt-watch-poster.png' | asset_url }}" alt="Illustrative blue-dial mechanical watch" width="1000" height="1200" loading="lazy"><span>AN EXTRAORDINARY POINT OF VIEW.</span></div><div class="lt-perspective-copy"><p class="lt-eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 id="lt-perspective-heading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}</h2><p class="lt-perspective-intro">{{ section.settings.copy | escape }}</p><a class="lt-button" href="{{ routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">⟶</span></a><div class="lt-perspective-details"><figure><img src="{{ 'lt-watch-detail.png' | asset_url }}" width="800" height="700" loading="lazy" alt="Illustrative close-up of a blue watch dial"><figcaption>01 / THE EXPRESSION</figcaption></figure><figure><img src="{{ 'lt-atelier.webp' | asset_url }}" width="1672" height="941" loading="lazy" alt="Illustrative mechanical watch movement"><figcaption>02 / THE INTRICACY</figcaption></figure></div></div></section>
+{% schema %}
+{
+  "name": "Luxurytime \u00b7 Perspective",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Label",
+      "default": "YOUR NEXT CHAPTER"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A new perspective.\nOn your next watch."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "An expression of style. A fascination with detail. A moment made your own. Discover the collection and find your next timepiece."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "FIND YOUR TIMEPIECE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxurytime \u00b7 Perspective"
+    }
+  ]
+}
+{% endschema %}

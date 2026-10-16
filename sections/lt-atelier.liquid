@@ -1,0 +1,54 @@
+<section class="lt-atelier" id="lt-atelier" aria-labelledby="lt-atelier-heading-{{ section.id }}"><div class="lt-atelier-image">{% if section.settings.image != blank %}<img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.image.alt | escape }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" loading="lazy">{% else %}<img src="{{ 'lt-atelier.webp' | asset_url }}" alt="Illustrative close-up of mechanical watchmaking" width="1672" height="941" loading="lazy">{% endif %}</div><div class="lt-atelier-copy"><p class="lt-eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 id="lt-atelier-heading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}</h2><p>{{ section.settings.copy | escape }}</p><a class="lt-button" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">⟶</span></a></div><span class="lt-atelier-caption">{{ section.settings.caption | escape }}</span></section>
+{% schema %}
+{
+  "name": "Luxurytime \u00b7 Editorial",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Editorial image",
+      "info": "Uses the included illustrative watchmaking image if empty."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Label",
+      "default": "BEYOND THE SURFACE"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The art of\npaying attention."
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "The smallest details can make the greatest impression. Explore the forms, finishes and mechanical artistry that make a watch remarkable."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "TAKE A CLOSER LOOK"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Image caption",
+      "default": "HOROLOGY, IN DETAIL \u00b7 ILLUSTRATIVE CRAFTSMANSHIP"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxurytime \u00b7 Editorial"
+    }
+  ]
+}
+{% endschema %}

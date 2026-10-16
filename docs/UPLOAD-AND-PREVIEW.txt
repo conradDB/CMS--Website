@@ -1,0 +1,17 @@
+LUXURYTIME ATELIER — SHOPIFY UPLOAD GUIDE
+
+Upload Luxurytime-Atelier-Shopify.zip in Shopify admin:
+Online Store > Themes > Import theme (or Add theme) > Upload zip file.
+
+Once uploaded, open Customize / Edit theme:
+1. Select your approved logo in Theme settings > Logo.
+2. Select your featured product collection and collection/brand tiles.
+3. Check navigation menus, footer policies and newsletter settings.
+4. Re-enable required app embeds and product metafield blocks from your existing theme.
+5. Preview desktop and mobile, then test a real product, its variants, cart and checkout handoff.
+
+Uploading creates an unpublished theme. Publish only through Shopify's separate Publish action when you choose to launch.
+
+The homepage automatically uses your All products collection until a featured collection is selected. The animated watch is an illustrative design study; shopping cards use your real catalogue. The supplied macro image is illustrative, not a photograph of Luxurytime's staff or services.
+
+The separate source ZIP is for developers. Do not upload it as a Shopify theme.

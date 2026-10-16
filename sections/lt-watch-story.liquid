@@ -1,0 +1,129 @@
+<luxurytime-story class="lt-story" id="lt-story-{{ section.id }}" data-section-id="{{ section.id }}" data-animated="{{ section.settings.enable_animation }}">
+  <div class="lt-stage">
+    <div class="lt-stage-glow" aria-hidden="true"></div>
+    <div class="lt-watch-visual" aria-hidden="true"><img class="lt-watch-poster" src="{{ 'lt-watch-poster.png' | asset_url }}" width="1000" height="1200" alt="" fetchpriority="high"><canvas class="lt-watch-canvas"></canvas></div>
+    <div class="lt-stage-top"><span>{{ section.settings.eyebrow | escape }}</span><a href="#lt-curated">EXPLORE THE COLLECTION <span aria-hidden="true">↗</span></a></div>
+    <div class="lt-chapters">
+      {% for block in section.blocks %}
+        <article class="lt-chapter lt-chapter--{{ forloop.index0 }}{% if forloop.first %} is-active{% endif %}" id="lt-chapter-{{ section.id }}-{{ forloop.index0 }}" role="tabpanel" aria-labelledby="lt-tab-{{ section.id }}-{{ forloop.index0 }}" data-chapter="{{ forloop.index0 }}" data-block-id="{{ block.id }}" {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+          <p class="lt-eyebrow">{{ block.settings.label | escape }}</p>
+          {% if forloop.first %}<h1 class="lt-display">{% else %}<h2 class="lt-display">{% endif %}<span>{{ block.settings.line_one | escape }}</span><em>{{ block.settings.line_two | escape }}</em>{% if forloop.first %}</h1>{% else %}</h2>{% endif %}
+          <p class="lt-chapter-copy">{{ block.settings.copy | escape }}</p>
+          {% if forloop.index == 3 %}<div class="lt-detail-list"><span>THE FACE <i>Character, at a glance.</i></span><span>THE CASE <i>Form. Finish. Proportion.</i></span><span>THE MOVEMENT <i>The art beneath the dial.</i></span></div>{% endif %}
+          <a class="lt-button" href="{{ routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">⟶</span></a>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="lt-stage-bottom"><a class="lt-scroll-cue" href="#lt-curated"><span aria-hidden="true">↓</span> SCROLL TO DISCOVER</a><div class="lt-story-tabs" role="tablist" aria-label="Watch story chapters">{% for block in section.blocks %}<button type="button" role="tab" id="lt-tab-{{ section.id }}-{{ forloop.index0 }}" aria-controls="lt-chapter-{{ section.id }}-{{ forloop.index0 }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-chapter-target="{{ forloop.index0 }}" aria-label="Chapter {{ forloop.index }}: {{ block.settings.line_one | escape }}">0{{ forloop.index }}<span aria-hidden="true"></span></button>{% endfor %}</div><button type="button" class="lt-motion" aria-pressed="false" aria-label="Pause animations"><span class="lt-motion-icon" aria-hidden="true"></span><span data-motion-label>MOTION ON</span></button></div>
+    <p class="lt-concept-caption">{{ section.settings.caption | escape }}</p>
+  </div>
+</luxurytime-story>
+{% schema %}
+{
+  "name": "Luxurytime \u00b7 Watch story",
+  "tag": "section",
+  "class": "lt-story-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Top label",
+      "default": "LUXURYTIME / THE ART OF TIME"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Shop button label",
+      "default": "DISCOVER THE COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Illustration caption",
+      "default": "AN EXPLORATION OF HOROLOGY \u00b7 ILLUSTRATIVE DESIGN"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable 3D scroll animation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Story chapter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Chapter label",
+          "default": "CHAPTER 01 \u2014 THE ART OF TIME"
+        },
+        {
+          "type": "text",
+          "id": "line_one",
+          "label": "Heading, first line",
+          "default": "A lifetime."
+        },
+        {
+          "type": "text",
+          "id": "line_two",
+          "label": "Heading, second line",
+          "default": "On your wrist."
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Supporting copy",
+          "default": "Explore extraordinary watches. Find the one that speaks to you."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxurytime \u00b7 Watch story",
+      "blocks": [
+        {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 01 \u2014 THE ART OF TIME",
+            "line_one": "A lifetime.",
+            "line_two": "On your wrist.",
+            "copy": "Some things do more than tell the time. Discover extraordinary watches, chosen for the way they make you feel."
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 02 \u2014 THE EXPRESSION",
+            "line_one": "Presence.",
+            "line_two": "In every detail.",
+            "copy": "A line. A finish. A play of light. A closer look reveals a different kind of distinction."
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 03 \u2014 THE ARCHITECTURE",
+            "line_one": "Beauty.",
+            "line_two": "Beneath the surface.",
+            "copy": "Go beyond the first impression. Explore the layers that give a mechanical watch its character."
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "label": "CHAPTER 04 \u2014 THE PERSPECTIVE",
+            "line_one": "Find the one.",
+            "line_two": "Make it yours.",
+            "copy": "From the first glance to the everyday ritual. Your next chapter starts with a timepiece that feels like you."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

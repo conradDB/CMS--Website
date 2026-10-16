@@ -1,0 +1,50 @@
+<section class="lt-collections lt-section" aria-labelledby="lt-collections-heading-{{ section.id }}"><div class="lt-section-head"><div><p class="lt-eyebrow">{{ section.settings.eyebrow | escape }}</p><h2 id="lt-collections-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2><p class="lt-section-subtitle">{{ section.settings.copy | escape }}</p></div></div><div class="lt-collection-grid">{% if section.blocks.size > 0 %}{% for block in section.blocks %}{% assign selected_collection = block.settings.collection %}{% if selected_collection != blank %}{% render 'lt-collection-tile', collection: selected_collection, title: block.settings.title, attributes: block.shopify_attributes %}{% endif %}{% endfor %}{% else %}{% for collection in collections limit: 5 %}{% render 'lt-collection-tile', collection: collection %}{% endfor %}{% endif %}<a class="lt-collection-tile lt-atelier-tile" href="#lt-atelier"><img src="{{ 'lt-atelier.webp' | asset_url }}" width="1672" height="941" loading="lazy" alt="Illustrative macro view of a mechanical watch movement"><span>THE FINER DETAILS <small>A CLOSER LOOK</small></span><b aria-hidden="true">↗</b></a></div><a class="lt-button" href="{{ routes.collections_url }}">EXPLORE ALL COLLECTIONS <span aria-hidden="true">⟶</span></a></section>
+{% schema %}
+{
+  "name": "Luxurytime \u00b7 Collections",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Label",
+      "default": "A WORLD TO DISCOVER"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The world of Luxurytime."
+    },
+    {
+      "type": "text",
+      "id": "copy",
+      "label": "Supporting copy",
+      "default": "Different expressions. One enduring fascination."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom title (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxurytime \u00b7 Collections"
+    }
+  ]
+}
+{% endschema %}
